@@ -700,6 +700,47 @@
     letter-spacing: 0.02em;
   }
 
+  /* ── ANIMATIONS ── */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1),
+                transform 0.75s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  [data-reveal="slide"] {
+    transform: translateX(-24px);
+  }
+
+  [data-reveal].revealed {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  /* hero loads immediately — no scroll needed */
+  .hero-eyebrow, .hero-headline, .hero-sub, .hero-ctas {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeUp 0.8s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .hero-eyebrow  { animation-delay: 0.1s; }
+  .hero-headline { animation-delay: 0.25s; }
+  .hero-sub      { animation-delay: 0.4s; }
+  .hero-ctas     { animation-delay: 0.55s; }
+
+  .hero-stat-item {
+    opacity: 0;
+    animation: heroFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .hero-stat-item:nth-child(1) { animation-delay: 0.35s; }
+  .hero-stat-item:nth-child(2) { animation-delay: 0.48s; }
+  .hero-stat-item:nth-child(3) { animation-delay: 0.61s; }
+  .hero-stat-item:nth-child(4) { animation-delay: 0.74s; }
+
+  @keyframes heroFadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     nav { padding: 0 1.5rem; }
@@ -784,38 +825,38 @@
 <!-- INSIGHT -->
 <section class="insight-section">
   <div>
-    <h2 class="insight-headline">Most fundraising<br>support starts too late<br>and ends <em>too early.</em></h2>
+    <h2 class="insight-headline" data-reveal>Most fundraising<br>support starts too late<br>and ends <em>too early.</em></h2>
   </div>
   <div>
-    <p class="insight-body">Many advisors stay at strategy level or only make introductions. In practice, fundraising succeeds when targeting, narrative, communication and investor handling are tightly connected.<br><br>That is where I work — translating a mandate into a targeted investor process with clear messages, stronger conversations and better conversion.</p>
+    <p class="insight-body" data-reveal data-delay="150">Many advisors stay at strategy level or only make introductions. In practice, fundraising succeeds when targeting, narrative, communication and investor handling are tightly connected.<br><br>That is where I work — translating a mandate into a targeted investor process with clear messages, stronger conversations and better conversion.</p>
   </div>
 </section>
 
 <!-- SERVICES -->
 <section class="services-section" id="services">
-  <div class="section-label">Services</div>
+  <div class="section-label" data-reveal="slide">Services</div>
   <div class="services-grid">
-    <div class="service-item">
+    <div class="service-item" data-reveal data-delay="0">
       <div class="service-num">01</div>
       <div class="service-title">Investor Targeting</div>
       <div class="service-desc">Build focused target lists. Prioritize by fit, appetite and relevance. Identify likely anchor profiles and warm routes.</div>
     </div>
-    <div class="service-item">
+    <div class="service-item" data-reveal data-delay="80">
       <div class="service-num">02</div>
       <div class="service-title">Narrative &amp; Messaging</div>
       <div class="service-desc">Sharpen the equity story. Translate materials into concise, audience-specific hooks and differentiated positioning.</div>
     </div>
-    <div class="service-item">
+    <div class="service-item" data-reveal data-delay="160">
       <div class="service-num">03</div>
       <div class="service-title">Outreach Support</div>
       <div class="service-desc">Bespoke contact language, outreach sequences, follow-up logic and alignment between deck, message and conversation.</div>
     </div>
-    <div class="service-item">
+    <div class="service-item" data-reveal data-delay="240">
       <div class="service-num">04</div>
       <div class="service-title">Conversation Support</div>
       <div class="service-desc">Prepare, structure and moderate investor discussions. Follow-up coordination and process momentum management.</div>
     </div>
-    <div class="service-item">
+    <div class="service-item" data-reveal data-delay="320">
       <div class="service-num">05</div>
       <div class="service-title">Closing Support</div>
       <div class="service-desc">Move discussions forward. Clarify next steps, coordinate stakeholders, reduce friction in the last mile of the process.</div>
@@ -825,34 +866,34 @@
 
 <!-- PROCESS -->
 <section class="process-section" id="process">
-  <div class="section-label">How I work</div>
+  <div class="section-label" data-reveal="slide">How I work</div>
   <div class="process-steps">
-    <div class="step">
+    <div class="step" data-reveal data-delay="0">
       <div class="step-num">Step 01</div>
       <div class="step-title">Clarify the mandate</div>
       <div class="step-body">Define the raise, the audience, the use case, the messaging priorities and the realistic fundraising path.</div>
     </div>
-    <div class="step">
+    <div class="step" data-reveal data-delay="80">
       <div class="step-num">Step 02</div>
       <div class="step-title">Build the target map</div>
       <div class="step-body">Identify the most relevant investor or sponsor segments and shape a focused target list.</div>
     </div>
-    <div class="step">
+    <div class="step" data-reveal data-delay="160">
       <div class="step-num">Step 03</div>
       <div class="step-title">Sharpen the message</div>
       <div class="step-body">Translate the opportunity into clear, audience-relevant language with a strong rationale and differentiated hooks.</div>
     </div>
-    <div class="step">
+    <div class="step" data-reveal data-delay="240">
       <div class="step-num">Step 04</div>
       <div class="step-title">Support outreach</div>
       <div class="step-body">Structure the approach, adapt communication and increase the quality of first contact and follow-up.</div>
     </div>
-    <div class="step">
+    <div class="step" data-reveal data-delay="320">
       <div class="step-num">Step 05</div>
       <div class="step-title">Support conversations</div>
       <div class="step-body">Prepare and moderate investor discussions so the process stays clear and constructive throughout.</div>
     </div>
-    <div class="step">
+    <div class="step" data-reveal data-delay="400">
       <div class="step-num">Step 06</div>
       <div class="step-title">Drive toward closing</div>
       <div class="step-body">Remain involved in coordination and follow-through until the process reaches a concrete outcome.</div>
@@ -864,17 +905,17 @@
 <section class="track-section" id="track">
   <div class="track-intro">
     <div>
-      <div class="section-label">Track Record</div>
-      <h2 class="track-headline">Selected relevant experience</h2>
+      <div class="section-label" data-reveal="slide">Track Record</div>
+      <h2 class="track-headline" data-reveal data-delay="100">Selected relevant experience</h2>
     </div>
     <div>
-      <p class="track-subtext">Selected examples of relevant fundraising, investor bridge-building and sponsor introduction work. Case studies are shown for illustrative purposes, subject to confidentiality and applicable permissions.</p>
+      <p class="track-subtext" data-reveal data-delay="200">Selected examples of relevant fundraising, investor bridge-building and sponsor introduction work. Case studies are shown for illustrative purposes, subject to confidentiality and applicable permissions.</p>
     </div>
   </div>
 
   <div class="cases-grid">
 
-    <div class="case-card">
+    <div class="case-card" data-reveal data-delay="0">
       <div class="case-tag">Case 01 · Europe–India Investment Platform</div>
       <h3 class="case-title">Strategic partner support for sponsor introduction and Europe–India investor bridge-building</h3>
       <p class="case-body">Supported the Europe India Investment Summit as a strategic partner with a mandate focused on introductions of allocators, LPs, investment managers, funds and other relevant stakeholders. The partnership model included both sponsorship-related revenues and outcome-based success fees on realized sponsor outcomes.</p>
@@ -885,7 +926,7 @@
       </ul>
     </div>
 
-    <div class="case-card">
+    <div class="case-card" data-reveal data-delay="100">
       <div class="case-tag">Case 02 · Institutional Sponsor Introduction</div>
       <h3 class="case-title">Sponsor introduction support with institutional relevance</h3>
       <p class="case-body">Contributed to sponsor acquisition and relationship building in the context of a Europe–India investment initiative, demonstrating the ability to connect a platform narrative with commercially relevant counterparties.</p>
@@ -896,7 +937,7 @@
       </ul>
     </div>
 
-    <div class="case-card">
+    <div class="case-card" data-reveal data-delay="200">
       <div class="case-tag">Case 03 · Specialist Alternative Investment</div>
       <h3 class="case-title">Relevant exposure to differentiated investment strategies and fundraising narratives</h3>
       <p class="case-body">Built familiarity with investor-facing fundraising narratives in specialist alternative investment contexts, including technology growth lending and differentiated return propositions.</p>
@@ -907,7 +948,7 @@
       </ul>
     </div>
 
-    <div class="case-card">
+    <div class="case-card" data-reveal data-delay="300">
       <div class="case-tag">Case 04 · High-Conviction Capital Story</div>
       <h3 class="case-title">Capital story support in a niche, high-conviction investment case</h3>
       <p class="case-body">Worked around investment narratives where institutional readability, positioning and investor communication were central to the capital formation process.</p>
@@ -921,81 +962,81 @@
   </div>
 
   <div class="track-proof">
-    <div class="proof-item">
+    <div class="proof-item" data-reveal data-delay="0">
       <div class="proof-label">What these cases show</div>
       <div class="proof-text">Strategy and execution in the same role</div>
     </div>
-    <div class="proof-item">
+    <div class="proof-item" data-reveal data-delay="100">
       <div class="proof-label">&nbsp;</div>
       <div class="proof-text">Comfort with bespoke investor narratives</div>
     </div>
-    <div class="proof-item">
+    <div class="proof-item" data-reveal data-delay="200">
       <div class="proof-label">&nbsp;</div>
       <div class="proof-text">Understanding of sponsor, LP and allocator dynamics</div>
     </div>
-    <div class="proof-item">
+    <div class="proof-item" data-reveal data-delay="300">
       <div class="proof-label">&nbsp;</div>
       <div class="proof-text">Cross-border and thematic fundraising exposure</div>
     </div>
   </div>
 
-  <p class="track-footnote">References and case studies shown for illustrative purposes. Where relevant, formulations reflect anonymized or aggregated project experience. Only mandates that are contractually and reputationally appropriate have been disclosed.</p>
+  <p class="track-footnote" data-reveal>References and case studies shown for illustrative purposes. Where relevant, formulations reflect anonymized or aggregated project experience. Only mandates that are contractually and reputationally appropriate have been disclosed.</p>
 </section>
 
 <!-- ENGAGEMENT MODEL -->
 <section class="model-section" id="model">
   <div>
-    <div class="section-label">Engagement model</div>
-    <h2 class="model-headline">Built for real<br>execution, not<br>just introductions</h2>
+    <div class="section-label" data-reveal="slide">Engagement model</div>
+    <h2 class="model-headline" data-reveal data-delay="120">Built for real<br>execution, not<br>just introductions</h2>
   </div>
   <div>
     <div class="model-items">
-      <div class="model-item">
+      <div class="model-item" data-reveal data-delay="0">
         <div class="model-item-label">Retainer</div>
         <div class="model-item-value">Monthly or project</div>
         <div class="model-item-desc">Covers the front-loaded work — target mapping, messaging refinement, outreach preparation and process support from day one.</div>
       </div>
-      <div class="model-item">
+      <div class="model-item" data-reveal data-delay="120">
         <div class="model-item-label">Success fee</div>
         <div class="model-item-value">1 – 2% on AUM</div>
         <div class="model-item-desc">Tied to successfully introduced and closed capital. Exact terms depend on mandate scope, complexity and the exact nature of the role.</div>
       </div>
-      <div class="model-item" style="grid-column: span 2;">
+      <div class="model-item" style="grid-column: span 2;" data-reveal data-delay="240">
         <div class="model-item-label">Why this model works</div>
         <div class="model-item-desc" style="font-size:14px;">Ensures serious execution from day one. Covers the real work before a closing happens. Keeps incentives fully aligned around outcomes — not activity.</div>
       </div>
     </div>
-    <p class="model-note">Commercial terms are always defined individually and depend on mandate type, regulatory context and the exact nature of the introduction and support role.</p>
+    <p class="model-note" data-reveal data-delay="320">Commercial terms are always defined individually and depend on mandate type, regulatory context and the exact nature of the introduction and support role.</p>
   </div>
 </section>
 
 <!-- ABOUT -->
 <section class="about-section" id="about">
   <div>
-    <div class="section-label about-label">About</div>
-    <h2 class="about-headline">Roman<br>Gaus</h2>
+    <div class="section-label about-label" data-reveal="slide">About</div>
+    <h2 class="about-headline" data-reveal data-delay="100">Roman<br>Gaus</h2>
   </div>
   <div class="about-body">
-    <p>I work at the intersection of fundraising, positioning and investor access. My role is to help promising mandates become more legible, more targeted and better executed in the market.</p>
-    <p>What differentiates my work is that I do not stop at introductions. I support the front-end architecture of a raise — who to target, how to position the case, how to communicate it, and how to guide the process through actual investor conversations.</p>
-    <p>My background combines investment, strategic development, venture and cross-border relationship building — across fund concepts, investment platforms, startup and innovation ecosystems, and investor-facing initiatives where conviction, communication and execution all matter.</p>
-    <p>I am particularly drawn to situations that require bespoke positioning: specialist strategies, differentiated platforms, first-time or emerging managers, and mandates where the story must be translated carefully for the right counterparties.</p>
+    <p data-reveal data-delay="0">I work at the intersection of fundraising, positioning and investor access. My role is to help promising mandates become more legible, more targeted and better executed in the market.</p>
+    <p data-reveal data-delay="120">What differentiates my work is that I do not stop at introductions. I support the front-end architecture of a raise — who to target, how to position the case, how to communicate it, and how to guide the process through actual investor conversations.</p>
+    <p data-reveal data-delay="240">My background combines investment, strategic development, venture and cross-border relationship building — across fund concepts, investment platforms, startup and innovation ecosystems, and investor-facing initiatives where conviction, communication and execution all matter.</p>
+    <p data-reveal data-delay="360">I am particularly drawn to situations that require bespoke positioning: specialist strategies, differentiated platforms, first-time or emerging managers, and mandates where the story must be translated carefully for the right counterparties.</p>
   </div>
 </section>
 
 <!-- CTA / CONTACT -->
 <section class="cta-section" id="contact">
-  <div class="section-label cta-label">Contact</div>
-  <h2 class="cta-headline">Need support with investor access and fundraising execution?</h2>
-  <p class="cta-sub">I work with a limited number of mandates where hands-on support, narrative clarity and investor relevance matter.</p>
-  <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+  <div class="section-label cta-label" data-reveal="slide">Contact</div>
+  <h2 class="cta-headline" data-reveal data-delay="100">Need support with investor access and fundraising execution?</h2>
+  <p class="cta-sub" data-reveal data-delay="220">I work with a limited number of mandates where hands-on support, narrative clarity and investor relevance matter.</p>
+  <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-reveal data-delay="340">
     <input class="contact-field" type="text" name="name" placeholder="Your name" required />
     <input class="contact-field" type="text" name="organisation" placeholder="Organisation" />
     <input class="contact-field" type="email" name="email" placeholder="Email address" required />
     <textarea class="contact-field" name="message" placeholder="Briefly describe your mandate or question" required></textarea>
     <button class="btn-primary" type="submit">Start a conversation</button>
   </form>
-  <p class="cta-meta">Zürich, Switzerland &nbsp;·&nbsp; roman@romangaus.com &nbsp;·&nbsp; <a href="#" style="color:var(--ink-faint); text-decoration:none;">LinkedIn</a></p>
+  <p class="cta-meta" data-reveal data-delay="440">Zürich, Switzerland &nbsp;·&nbsp; roman@romangaus.com &nbsp;·&nbsp; <a href="#" style="color:var(--ink-faint); text-decoration:none;">LinkedIn</a></p>
 </section>
 
 <!-- FOOTER -->
@@ -1014,5 +1055,20 @@
   Disclaimer: No regulated investment advice. No public offering. No guarantee of capital raising success. Any regulated activities are subject to applicable law and mandate structure. References and case studies shown for illustrative purposes, subject to confidentiality and permission.
 </div>
 
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => {
+          entry.target.classList.add('revealed');
+        }, Number(delay));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
