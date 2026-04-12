@@ -90,6 +90,24 @@
 
   .nav-cta:hover { background: var(--ink); color: var(--white); }
 
+  .nav-legal {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-legal:hover { color: var(--ink); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
   /* ── HERO ── */
   .hero {
     min-height: 88vh;
@@ -960,9 +978,11 @@
     <li><a href="#track">Track Record</a></li>
     <li><a href="#model">Engagement Model</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#legal">Legal</a></li>
   </ul>
-  <a class="nav-cta" href="#contact">Start a conversation</a>
+  <div class="nav-right">
+    <a class="nav-legal" href="roman-gaus-regulatory-disclaimer.html">Legal</a>
+    <a class="nav-cta" href="#contact">Start a conversation</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1315,7 +1335,7 @@
     <li><a href="#track">Track Record</a></li>
     <li><a href="#model">Engagement</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#legal">Legal</a></li>
+    <li><a href="roman-gaus-regulatory-disclaimer.html">Legal</a></li>
   </ul>
   <div class="footer-right">
     <div>Zürich, Switzerland</div>
