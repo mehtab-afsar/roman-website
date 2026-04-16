@@ -79,6 +79,24 @@ nav {
 
 .nav-cta:hover { background: var(--ink); color: var(--white); }
 
+.nav-legal {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.nav-legal:hover { color: var(--ink); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 /* ── HERO ── */
 .hero {
   min-height: 88vh;
