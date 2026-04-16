@@ -248,13 +248,14 @@
   <div class="section-label cta-label" data-reveal="slide">Contact</div>
   <h2 class="cta-headline" data-reveal data-delay="100">Need support with investor access and fundraising execution?</h2>
   <p class="cta-sub" data-reveal data-delay="220">I work with a limited number of mandates where hands-on support, narrative clarity and investor relevance matter.</p>
-  <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" data-reveal>
+  <form id="contact-form" class="contact-form" data-reveal>
     <input class="contact-field" type="text" name="name" placeholder="Your name" required />
     <input class="contact-field" type="text" name="organisation" placeholder="Organisation" />
     <input class="contact-field" type="email" name="email" placeholder="Email address" required />
     <textarea class="contact-field" name="message" placeholder="Briefly describe your mandate or question" required></textarea>
-    <button class="btn-primary" type="submit">Start a conversation</button>
+    <button class="btn-primary" type="submit" id="contact-submit">Start a conversation</button>
   </form>
+  <p id="form-status" style="margin-top:1rem;font-size:13px;color:var(--ink-faint);min-height:1.2em;"></p>
   <p class="cta-meta">Zürich, Switzerland &nbsp;·&nbsp; roman@romangaus.com &nbsp;·&nbsp; <a href="#" style="color:var(--ink-faint); text-decoration:none;">LinkedIn</a></p>
 </section>
 
