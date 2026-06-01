@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Recent Cases — Roman Gaus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --ink-muted: #4a4a46;
+    --ink-faint: #8a8a84;
+    --surface: #f4f2ed;
+    --white: #fdfcf9;
+    --rule: rgba(26,26,24,0.10);
+    --gold: #b8972a;
+    --gold-light: #e8d99a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-legal {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-legal:hover { color: var(--ink-muted); }
+
+  .nav-cta {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 300;
+    border: 1px solid var(--ink);
+    padding: 8px 20px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .nav-cta:hover { background: var(--ink); color: var(--white); }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 6rem 3rem 5rem;
+  }
+
+  .page-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .page-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 58px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+    max-width: 640px;
+  }
+
+  .page-intro {
+    font-size: 15px;
+    color: var(--ink-muted);
+    line-height: 1.85;
+    font-weight: 300;
+    max-width: 560px;
+  }
+
+  /* ── CASES GRID ── */
+  .cases-section {
+    padding: 5rem 3rem 7rem;
+  }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .case-card {
+    background: var(--white);
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+
+  .case-card:hover { background: var(--surface); }
+
+  .case-tag {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  .case-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+
+  .case-teaser {
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.75;
+    font-weight: 300;
+    flex: 1;
+  }
+
+  .case-link {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 300;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: color 0.2s;
+    text-decoration: none;
+  }
+
+  .case-link:hover { color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.65);
+    padding: 4rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.05em;
+    width: 100%;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .page-hero { padding: 4rem 1.5rem 3rem; }
+    .cases-section { padding: 3rem 1.5rem 5rem; }
+    .cases-grid { grid-template-columns: 1fr; }
+    footer { padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="index.html">Roman Gaus</a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#process">How I Work</a></li>
+    <li><a href="index.html#track">Track Record</a></li>
+    <li><a href="index.html#model">Engagement Model</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="recent-cases.html">Recent Cases</a></li>
+  </ul>
+  <div class="nav-right">
+    <a class="nav-legal" href="regulatory-disclaimer.html">Legal</a>
+    <a class="nav-cta" href="index.html#contact">Start a conversation</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-eyebrow">Recent Cases</div>
+  <h1 class="page-title">Perspectives &amp; Case Studies</h1>
+  <p class="page-intro">Analysis of mandates, markets, and investment structures — from the field.</p>
+</section>
+
+<!-- CASES -->
+<section class="cases-section">
+  <div class="cases-grid">
+    <a class="case-card" href="bootstrap-europe.html">
+      <div class="case-tag">Private Credit &middot; June 2026</div>
+      <div class="case-title">Asymmetric By Design</div>
+      <p class="case-teaser">Bootstrap didn't wait for the BDC model to crack before it built senior-secured lending with an uncapped warrant upside — almost a decade ago. How one European lender constructed a 20% IRR from three distinct components while sitting in the senior-creditor seat.</p>
+      <span class="case-link">Read case →</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <a class="footer-name" href="index.html">Roman Gaus</a>
+  <ul class="footer-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="regulatory-disclaimer.html">Legal</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2026 Roman Gaus. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

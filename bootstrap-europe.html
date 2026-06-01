@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Asymmetric By Design — Roman Gaus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --ink-muted: #4a4a46;
+    --ink-faint: #8a8a84;
+    --surface: #f4f2ed;
+    --white: #fdfcf9;
+    --rule: rgba(26,26,24,0.10);
+    --gold: #b8972a;
+    --gold-light: #e8d99a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    font-weight: 300;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 0 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .nav-legal {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-legal:hover { color: var(--ink-muted); }
+
+  .nav-cta {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 300;
+    border: 1px solid var(--ink);
+    padding: 8px 20px;
+    background: transparent;
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .nav-cta:hover { background: var(--ink); color: var(--white); }
+
+  /* ── ARTICLE HEADER ── */
+  .article-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--rule);
+    padding: 6rem 3rem 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .article-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .article-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .article-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 5.5vw, 72px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-subtitle {
+    font-size: 18px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    font-weight: 300;
+    max-width: 680px;
+    margin-bottom: 2rem;
+  }
+
+  .article-byline {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .article-byline span { color: var(--rule); }
+
+  /* ── WEBINAR ALERT ── */
+  .webinar-alert {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .alert-box {
+    border-left: 2px solid var(--gold);
+    background: #faf8f3;
+    padding: 1.5rem 2rem;
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .alert-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .alert-text {
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+  }
+
+  .alert-text a {
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ── ARTICLE BODY ── */
+  .article-body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 3rem 0;
+  }
+
+  .article-section {
+    margin-bottom: 3.5rem;
+  }
+
+  .article-section + .article-section {
+    padding-top: 3.5rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 2.5vw, 34px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+  }
+
+  .article-body p {
+    font-size: 15px;
+    color: var(--ink-muted);
+    line-height: 2.0;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-body p:last-child { margin-bottom: 0; }
+
+  /* ── PULL QUOTES ── */
+  .pull-quote {
+    border-left: 2px solid var(--gold);
+    margin: 3rem 0;
+    padding: 1.75rem 2.5rem;
+    background: var(--surface);
+  }
+
+  .pull-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 2.5vw, 30px);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* ── DARK INSIGHT BANDS ── */
+  .insight-band {
+    background: var(--ink);
+    padding: 5rem 3rem;
+    margin: 3rem 0;
+  }
+
+  .insight-band-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .insight-band p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    line-height: 2.0;
+    font-weight: 300;
+    margin-bottom: 1.25rem;
+  }
+
+  .insight-band p:last-child { margin-bottom: 0; }
+
+  .insight-band .insight-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .insight-band em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  /* ── DATA CALLOUTS (inline) ── */
+  .data-callout {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    padding: 3px 10px;
+    margin: 0 2px;
+    vertical-align: baseline;
+  }
+
+  /* ── RETURN COMPONENTS (3 cards) ── */
+  .return-components {
+    background: var(--surface);
+    padding: 4rem 3rem;
+    margin: 3rem 0;
+  }
+
+  .return-components-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .return-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .return-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .return-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .return-item {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+  }
+
+  .return-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+
+  .return-name {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+
+  .return-desc {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ── FUND PERFORMANCE CARDS ── */
+  .performance-section {
+    background: var(--surface);
+    padding: 4rem 3rem;
+    margin: 3rem 0;
+  }
+
+  .performance-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .performance-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 2.5rem;
+  }
+
+  .perf-card {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+  }
+
+  .perf-vintage {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .perf-fund {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .perf-stats {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .perf-stats li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.75rem;
+    font-size: 13px;
+  }
+
+  .perf-stats li:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .perf-stat-label {
+    color: var(--ink-faint);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+  }
+
+  .perf-stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  /* ── 5 REASONS ── */
+  .reasons-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .reasons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 2rem;
+  }
+
+  .reason-item {
+    background: var(--white);
+    padding: 2.5rem 3rem;
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .reason-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    padding-top: 0.15rem;
+  }
+
+  .reason-content { flex: 1; }
+
+  .reason-title {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .reason-body {
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ── SOCIAL POSTS ── */
+  .social-section {
+    background: var(--surface);
+    padding: 5rem 3rem;
+    margin-top: 3rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .social-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .social-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .social-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .social-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+
+  .social-post {
+    background: var(--white);
+    border-left: 2px solid var(--gold);
+    padding: 2rem 2.5rem;
+  }
+
+  .social-post-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.85rem;
+    font-weight: 400;
+  }
+
+  .social-post p {
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+  }
+
+  .social-post p:last-of-type { margin-bottom: 0; }
+
+  .social-post .hashtags {
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-top: 0.85rem;
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER CTA BAND ── */
+  .footer-cta {
+    background: var(--ink);
+    padding: 5rem 3rem;
+    text-align: center;
+  }
+
+  .footer-cta-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-cta h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-cta h2 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--white);
+    color: var(--ink);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 300;
+    padding: 14px 32px;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.8; }
+
+  /* ── SITE FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.65);
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.05em;
+    width: 100%;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .article-header { padding: 4rem 1.5rem 3rem; }
+    .webinar-alert { padding: 0 1.5rem; }
+    .article-body { padding: 3rem 1.5rem 0; }
+    .return-components, .performance-section, .social-section { padding: 3rem 1.5rem; }
+    .return-grid, .performance-grid { grid-template-columns: 1fr; }
+    .insight-band { padding: 3.5rem 1.5rem; }
+    .reasons-section { padding: 0 1.5rem; }
+    .reason-item { padding: 2rem 1.5rem; grid-template-columns: 2.5rem 1fr; gap: 1rem; }
+    .footer-cta { padding: 4rem 1.5rem; }
+    footer { padding: 2.5rem 1.5rem; }
+    .pull-quote { padding: 1.25rem 1.5rem; margin: 2rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-name" href="index.html">Roman Gaus</a>
+  <ul class="nav-links">
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#process">How I Work</a></li>
+    <li><a href="index.html#track">Track Record</a></li>
+    <li><a href="index.html#model">Engagement Model</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="recent-cases.html">Recent Cases</a></li>
+  </ul>
+  <div class="nav-right">
+    <a class="nav-legal" href="regulatory-disclaimer.html">Legal</a>
+    <a class="nav-cta" href="index.html#contact">Start a conversation</a>
+  </div>
+</nav>
+
+<!-- ARTICLE HEADER -->
+<header class="article-header">
+  <div class="article-eyebrow">Private Credit &middot; Case</div>
+  <h1 class="article-title">Asymmetric<br>By Design</h1>
+  <p class="article-subtitle">How Bootstrap built senior-secured credit with capped downside and unlimited upside — a decade before the Private Credit BDC model broke.</p>
+  <div class="article-byline">
+    Roman Gaus <span>·</span> June 2026 <span>·</span> Private Credit
+  </div>
+</header>
+
+<!-- WEBINAR ALERT -->
+<div class="webinar-alert">
+  <div class="alert-box">
+    <div class="alert-label">Upcoming Webinar</div>
+    <p class="alert-text">Bootstrap Europe's Q2 webinar — <em>"Making a 10x and 3x on a credit fund while being a senior secured creditor"</em> — takes place on <strong>Thursday, 4 June 2026 at 15:00 CET</strong>, hosted by Managing Partners Stephanie Heller and Fatou Diagne. <a href="#WEBINAR-LINK-PLACEHOLDER">[Register here]</a></p>
+  </div>
+</div>
+
+<!-- ARTICLE BODY -->
+<article>
+
+  <!-- Section: BDC Model -->
+  <div class="article-body">
+    <div class="article-section">
+      <h2 class="section-heading">The Private Credit Blues Has Arrived</h2>
+      <p>Apollo Global Management has recently been in talks to sell its $3 billion publicly listed business development company. Defaults inside that fund doubled in a single quarter, to 5.3%. The firm's direct origination gross returns have collapsed from 2.6% a year ago to 0.5%. Its private BDC was faced with redemption requests for 11% of its shares.</p>
+      <p>From the onset, the recent headwinds in the private credit space may just be temporary. But I believe they point to structural issues with the business development company model. Understanding what a BDC is — and how it generates returns — is the starting point for understanding why the market reacted so heavily.</p>
+    </div>
+
+    <div class="article-section">
+      <h2 class="section-heading">BDC: Making Loans to Private Companies</h2>
+      <p>A business development company, or BDC, is a US regulatory structure created in 1980 to channel investment into small and mid-sized companies. Like a REIT, a BDC is an investment vehicle where investors can participate in private markets. In practice, that has made the BDC the dominant US vehicle for direct lending — senior secured loans to middle-market companies that traditional banks have stepped back from financing.</p>
+      <p>The BDC market has grown enormously over the last fifteen years — from a modest niche in the wake of the 2008 financial crisis into one of the central channels of US middle-market credit, with assets under management now in the several hundred billion dollars across listed and private vehicles. Two forces drove the growth: the post-financial crisis retreat of regional banks from middle-market lending, and the appetite of retail and high-net-worth investors for yield through the long zero-interest rate era.</p>
+      <p>The BDC originates or acquires senior secured loans to mid-market companies, collects coupon income, distributes most of it to investors as dividends, and reports a net asset value based on quarterly valuations of its loan portfolio. The investor's total return is the dividend yield plus or minus any change in the underlying loan values. That structure was unproblematic in 2017–2022, when defaults were exceptionally low, growth was steady, and yield-hungry retail investors were grateful for any positive coupon. <em>It becomes problematic when the cycle turns.</em></p>
+    </div>
+  </div>
+
+  <!-- DARK INSIGHT BAND -->
+  <div class="insight-band">
+    <div class="insight-band-inner">
+      <p class="insight-headline">When credit conditions deteriorate, the <em>BDC model has a problem.</em></p>
+      <p>The four symptoms in the headlines this quarter — rising defaults, NAV markdowns, share-price discounts, redemption requests — are all pointing to the same structural issue. As the Wall Street Journal reported, investors in BDC funds lined up to exit at NAV, forcing the manager to sell performing assets. Blue Owl Capital Corp quickly lost 25% of its net asset value.</p>
+      <p>The fundamental flaw of the BDC model was built on a simple idea. It worked for the better part of a decade because the cycle was strong. It is failing now because the cycle has turned. Apollo's announcement that it will provide daily valuations across its $800 billion credit book is being reported as a sign of strength. In fact it is more like a concession to current investors looking for a way out.</p>
+      <p>We can now see that the BDC segment does not compensate for the dispersion of outcomes — and dispersion is exactly what lending into technology growth produces.</p>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE 1 -->
+  <div class="article-body">
+    <div class="pull-quote">
+      <p>"Private credit's recent headlines may look like separate issues — defaults, markdowns, discounts, redemptions. They're not. They point to one structural issue: capped upside and uncapped downside."</p>
+    </div>
+  </div>
+
+  <!-- RETURN COMPONENTS -->
+  <div class="return-components">
+    <div class="return-components-inner">
+      <div class="return-label">The Bootstrap Europe Model — Three Yield Drivers</div>
+      <div class="return-grid">
+        <div class="return-item">
+          <div class="return-value">13–15%</div>
+          <div class="return-name">Cash Yield</div>
+          <p class="return-desc">10–12% cash interest paid monthly plus fees. Senior secured coupon income — and more competitive alone than what the largest BDC platforms now deliver.</p>
+        </div>
+        <div class="return-item">
+          <div class="return-value">5–7%</div>
+          <div class="return-name">Warrants &amp; Exit Fees</div>
+          <p class="return-desc">Equity exposure through warrants equal to 10–12% of loan principal, exercisable at exit at the company's last financing round strike price.</p>
+        </div>
+        <div class="return-item">
+          <div class="return-value">Uncapped</div>
+          <div class="return-name">Equity Upside</div>
+          <p class="return-desc">When a borrower exits at a high multiple, the warrant converts into a cash payout sized to the company's equity appreciation. One unicorn can cover several defaults.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section: Bootstrap model -->
+  <div class="article-body">
+    <div class="article-section">
+      <h2 class="section-heading">The Bootstrap Europe Model</h2>
+      <p>Bootstrap Europe was founded in 2015 by Stephanie Heller and Fatou Diagne — one of the rare women-led GPs in European credit — on a deliberately inverted premise. The firm's classic deal is a senior secured loan of <span class="data-callout">€1m – €25m</span> to a European technology growth company, with a 36–48 month maturity and principal amortisation throughout. The targeted return is approximately <span class="data-callout">20% IRR</span>, constructed from three distinct components.</p>
+      <p>The first component is a cash yield of <span class="data-callout">13–15%</span> on the loan amount — 10–12% cash interest paid monthly and other fees. This is the same type of return a BDC investor receives: senior secured coupon income. Critically, this piece alone is more than competitive with what the largest BDC platforms are now delivering. Apollo's reported 0.5% gross return on direct origination versus Bootstrap's 13–15% yields speak volumes.</p>
+      <p>The second component is equity exposure through warrants and exit fees, contributing an additional 5–7%. Warrants are issued by the borrower to Bootstrap as part of the loan agreement — the right to acquire a defined number of shares at the last financing round's strike price, exercisable at exit. They typically equal 10–12% of the loan principal at origination. For the borrower, issuing warrants is materially cheaper than raising more dilutive equity. For Bootstrap, warrants are the asymmetric upside.</p>
+    </div>
+
+    <div class="article-section">
+      <h2 class="section-heading">Riding the Unicorn Upside</h2>
+      <p>Lending into technology companies produces dispersion. A number of borrowers may default, but the majority of loans perform and repay. A small number may become unicorns — and Bootstrap's warrants capture those outcomes specifically. When a borrower exits at a high multiple, the warrant converts into a cash payout sized to the company's equity appreciation since the last financing round.</p>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE 2 -->
+  <div class="article-body">
+    <div class="pull-quote">
+      <p>"In the Bootstrap Europe model, one unicorn warrant can cover several defaults and still lift fund returns above what the coupon alone produces."</p>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <div class="article-section">
+      <p>The <span class="data-callout">~20% IRR</span> target is therefore not a higher-risk version of the BDC return. It is a differently structured return. Same senior-creditor seat at the table. Plus an equity option the BDC investor never owned.</p>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE 3 -->
+  <div class="article-body">
+    <div class="pull-quote">
+      <p>"The ~20% IRR target is not a higher-risk version of the BDC return. It is a differently structured return. Same senior-creditor seat. Plus an equity option the BDC investor never owned."</p>
+    </div>
+  </div>
+
+  <!-- FUND PERFORMANCE -->
+  <div class="performance-section">
+    <div class="performance-inner">
+      <div class="return-label">Bootstrap Europe Performance — Ten Years, 100 Loans</div>
+      <p style="font-size:14px;color:var(--ink-muted);line-height:1.75;max-width:680px;">Across more than 100 loans committed over a decade, Bootstrap's realised loss ratio is <span class="data-callout">0.7%</span> — among the lowest in European private credit. The fund vintages tell the upside half of the story.</p>
+      <div class="performance-grid">
+        <div class="perf-card">
+          <div class="perf-vintage">Vintage 2016</div>
+          <div class="perf-fund">Fund I</div>
+          <ul class="perf-stats">
+            <li><span class="perf-stat-label">TVPI</span><span class="perf-stat-value">2.01×</span></li>
+            <li><span class="perf-stat-label">Net IRR</span><span class="perf-stat-value">13.2%</span></li>
+            <li><span class="perf-stat-label">DPI per €1 called</span><span class="perf-stat-value">€1.16</span></li>
+          </ul>
+        </div>
+        <div class="perf-card">
+          <div class="perf-vintage">Vintage 2018</div>
+          <div class="perf-fund">Fund II</div>
+          <ul class="perf-stats">
+            <li><span class="perf-stat-label">TVPI</span><span class="perf-stat-value">1.59×</span></li>
+            <li><span class="perf-stat-label">Net IRR</span><span class="perf-stat-value">—</span></li>
+            <li><span class="perf-stat-label">Status</span><span class="perf-stat-value" style="font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink-muted);">Realising</span></li>
+          </ul>
+        </div>
+        <div class="perf-card">
+          <div class="perf-vintage">Vintage 2022</div>
+          <div class="perf-fund">Fund III</div>
+          <ul class="perf-stats">
+            <li><span class="perf-stat-label">TVPI</span><span class="perf-stat-value">1.62×</span></li>
+            <li><span class="perf-stat-label">Net IRR</span><span class="perf-stat-value">13.4%</span></li>
+            <li><span class="perf-stat-label">DPI</span><span class="perf-stat-value">60%</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 REASONS -->
+  <div class="reasons-section">
+    <div class="return-label" style="margin-top:3.5rem;">Five Reasons to Invest in Bootstrap</div>
+    <div class="reasons-list">
+      <div class="reason-item">
+        <div class="reason-num">01</div>
+        <div class="reason-content">
+          <div class="reason-title">Returns</div>
+          <p class="reason-body">Bootstrap targets net IRR of 14–15% to investors, based on approximately 20% gross IRR through a layered return — 13–15% contracted cash yield, 5–7% from warrants and exit fees, plus uncapped equity participation rights. Recent realisations include IRRs above 70% and above 2.6× MOIC on individual exits.</p>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="reason-num">02</div>
+        <div class="reason-content">
+          <div class="reason-title">Risk Management</div>
+          <p class="reason-body">A 0.7% realised loss ratio across more than 100 loans committed over a decade — among the lowest in European private credit. Every loan carries senior secured first-priority recourse and principal amortisation throughout. The heavy concentration of B2B SaaS in US BDC portfolios was the key driver behind the recent meltdown. Bootstrap's diversification across European tech subsectors is a structural advantage.</p>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="reason-num">03</div>
+        <div class="reason-content">
+          <div class="reason-title">Team</div>
+          <p class="reason-body">Bootstrap is led by Stephanie Heller and Fatou Diagne, who founded the firm in 2015 and remain one of the very few women-led GPs in European private credit. They are joined by Humphrey Nokes, who pioneered the European venture lending industry from 1999, and Eliott Saba, who built and led growth credit at Silicon Valley Bank. The full team carries more than 100 years of combined credit and venture experience across fourteen full-time professionals.</p>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="reason-num">04</div>
+        <div class="reason-content">
+          <div class="reason-title">Market</div>
+          <p class="reason-body">European technology growth lending remains structurally undersupplied. The regional banks pulled back after 2008 and have not returned. The US BDC platforms cannot operate at the €1–25m deal size that defines the European growth segment. PitchBook reports that European venture debt deal value reached €5.9 billion in Q1 2026, pacing 18% above 2025, with half the top ten deals driven by AI investments.</p>
+        </div>
+      </div>
+      <div class="reason-item">
+        <div class="reason-num">05</div>
+        <div class="reason-content">
+          <div class="reason-title">Timing</div>
+          <p class="reason-body">The flight to quality in private credit is happening now. Distress in the BDC platforms — the Apollo MFIC sale, the daily-marks concession, the broader return compression across Blackstone, Blue Owl, Ares and Golub — is producing a generational LP repositioning. Bootstrap's anchor LP base — the EIF, the BBB, KfW, Casey Foundation, and the Visa Foundation — is itself an endorsement that institutional capital has already identified this manager as the right side of the asymmetry.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING DARK BAND -->
+  <div class="insight-band" style="margin-top:3.5rem;">
+    <div class="insight-band-inner">
+      <p class="insight-headline">For institutional LPs the question is no longer whether private credit will continue to deliver.<br><em>It is which segment will endure.</em></p>
+      <p>The flight to quality in private credit is real — and some managers were built for exactly this cycle. Bootstrap Europe is positioned as a top specialist in this expanding market, with a portfolio diversified across the most resilient European technology subsectors and an anchor LP base that has already made this judgment.</p>
+    </div>
+  </div>
+
+  <!-- PULL QUOTE 4 -->
+  <div class="article-body" style="margin-bottom:3.5rem;">
+    <div class="pull-quote">
+      <p>"For institutional LPs the question is no longer whether private credit will continue to deliver. It is which private credit segment will endure over positive and negative cycles, and continue to deliver risk-adjusted returns."</p>
+    </div>
+  </div>
+
+  <!-- SOCIAL POSTS -->
+  <div class="social-section">
+    <div class="social-inner">
+      <div class="social-label">Perspectives — LinkedIn</div>
+      <div class="social-grid">
+        <div class="social-post">
+          <div class="social-post-label">The Asymmetry Post</div>
+          <p>Private credit's recent headlines may look like separate issues — defaults, markdowns, discounts, redemptions. They're not. They point to one structural issue: capped upside and uncapped downside.</p>
+          <p>That's what makes Bootstrap Europe interesting. Same senior-secured lender position — but with amortisation and warrant participation that captures upside when borrowers outperform. A very different risk/return structure in a market now repricing fast.</p>
+          <p class="hashtags">#PrivateCredit #VentureDebt #BootstrapEurope #AlternativeInvestments #AsymmetricReturns #InstitutionalInvesting</p>
+        </div>
+        <div class="social-post">
+          <div class="social-post-label">The LP Lens</div>
+          <p>For LPs looking at private credit in 2026, the question may no longer be "What yield am I earning?" but "What asymmetry do I actually own?"</p>
+          <p>Bootstrap Europe built around that question a decade ago: senior secured loans + principal amortisation + warrant upside. In a market now shifting toward quality, that structure feels increasingly relevant. Happy to share Fund IV materials or connect directly with the team.</p>
+          <p class="hashtags">#LPs #PrivateCredit #CreditMarkets #FundInvesting #EuropeanTech #BootstrapEurope #FamilyOffice</p>
+        </div>
+        <div class="social-post">
+          <div class="social-post-label">The Market Timing Post</div>
+          <p>The private credit market is entering a more selective phase. Capital is still there — but LP attention is shifting toward managers with durable downside protection and differentiated upside.</p>
+          <p>That's where Bootstrap Europe stands out: over 100 loans across a decade, senior secured positions, a low realised loss ratio, and a model built to participate when tech borrowers become breakout winners.</p>
+          <p class="hashtags">#PrivateCredit #BootstrapEurope #EuropeanInnovation #InstitutionalCapital #VentureLending #CreditStrategy #FundIV</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</article>
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <p class="footer-cta-label">Fund IV — Open to Institutional &amp; Qualified Investors</p>
+  <h2>Interested in Bootstrap Europe Fund IV or <em>discussing a mandate?</em></h2>
+  <a class="btn-primary" href="index.html#contact">Get in touch with Roman</a>
+</div>
+
+<footer>
+  <a class="footer-name" href="index.html">Roman Gaus</a>
+  <ul class="footer-links">
+    <li><a href="recent-cases.html">Recent Cases</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="regulatory-disclaimer.html">Legal</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2026 Roman Gaus. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
